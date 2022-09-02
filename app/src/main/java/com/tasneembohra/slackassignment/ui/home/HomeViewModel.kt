@@ -1,7 +1,10 @@
 package com.tasneembohra.slackassignment.ui.home
 
 import androidx.lifecycle.ViewModel
+import com.tasneembohra.slackassignment.repo.UserSearchRepository
 
-class HomeViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+class HomeViewModel(
+    userSearchRepository: UserSearchRepository
+) : ViewModel() {
+
 }

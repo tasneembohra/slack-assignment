@@ -1,28 +1,44 @@
 package com.tasneembohra.slackassignment.ui.home
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.tasneembohra.slackassignment.R
+import androidx.fragment.app.Fragment
+import com.tasneembohra.slackassignment.databinding.FragmentHomeBinding
+import com.tasneembohra.slackassignment.ui.home.di.homeModule
+import com.tasneembohra.slackassignment.ui.util.search.SearchBarConfig
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.context.loadKoinModules
+import timber.log.Timber
 
 class HomeFragment : Fragment() {
 
-    private lateinit var viewModel: HomeViewModel
+    private val viewModel: HomeViewModel by viewModel()
+    private lateinit var _binding: FragmentHomeBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        Timber.tag(javaClass.simpleName).d("onCreate(%s)", savedInstanceState)
+        super.onCreate(savedInstanceState)
+        // Loading feature module
+        loadKoinModules(homeModule)
+    }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return _binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
+    private fun bindSearchView() {
+
+    }
+
 
 }
