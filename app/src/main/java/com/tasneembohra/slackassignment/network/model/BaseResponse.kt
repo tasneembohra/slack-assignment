@@ -4,7 +4,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UserSearchResponse(
-    @SerialName("users")
-    val users: List<User> = emptyList(),
-): BaseResponse()
+open class BaseResponse {
+    @SerialName("error")
+    open val error: String? = null
+    @SerialName("ok")
+    open val ok: Boolean = false
+}

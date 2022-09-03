@@ -13,6 +13,7 @@ import retrofit2.create
 import timber.log.Timber
 
 private const val API_URL = "https://slack-users.herokuapp.com/"
+private val json = Json { ignoreUnknownKeys = true }
 
 @OptIn(ExperimentalSerializationApi::class)
 val networkModules = module {
@@ -30,7 +31,8 @@ val networkModules = module {
     }
 
     factory {
-        Json.asConverterFactory("application/json".toMediaType())
+        val json = Json { ignoreUnknownKeys = true }
+        json.asConverterFactory("application/json".toMediaType())
     }
 
     single {

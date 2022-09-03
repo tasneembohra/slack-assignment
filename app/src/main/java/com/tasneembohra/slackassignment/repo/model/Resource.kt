@@ -1,7 +1,10 @@
 package com.tasneembohra.slackassignment.repo.model
 
+import com.tasneembohra.slackassignment.network.model.BaseResponse
 import kotlinx.coroutines.CancellationException
 import timber.log.Timber
+
+enum class ErrorCode { NOT_FOUND }
 
 sealed class Resource<out T : Any?>(
     open val data: T?,
@@ -11,7 +14,8 @@ sealed class Resource<out T : Any?>(
     ) : Resource<T>(data)
 
     data class Error<out T : Any?>(
-        val exception: Throwable,
+        val exception: Throwable? = null,
+        val errorCode: ErrorCode? = null,
         override val data: T? = null,
         val isCancelled: Boolean = false,
     ) : Resource<T>(data)
@@ -30,9 +34,16 @@ sealed class Resource<out T : Any?>(
 }
 
 @Suppress("TooGenericExceptionCaught")
-inline fun <T : Any?> runResourceCatching(block: () -> T): Resource<T> {
+inline fun <T : Any, R : BaseResponse> runResourceCatching(
+    apiResponse: R,
+    block: (response: R) -> T
+): Resource<T> {
     return try {
-        Resource.Success(data = block())
+        when {
+            apiResponse.ok -> Resource.Success(data = block(apiResponse))
+            apiResponse.error == "Not found" -> Resource.Error(errorCode = ErrorCode.NOT_FOUND)
+            else -> Resource.Error()
+        }
     } catch (e: CancellationException) {
         Resource.Error(exception = e, isCancelled = true)
     } catch (e: Throwable) {

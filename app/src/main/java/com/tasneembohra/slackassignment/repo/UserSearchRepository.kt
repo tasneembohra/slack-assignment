@@ -13,13 +13,11 @@ interface UserSearchRepository {
 
 class UserSearchRepositoryImpl(
     private val userSearchService: UserSearchService,
-): UserSearchRepository {
+) : UserSearchRepository {
     override fun searchUser(term: String): Flow<Resource<Set<UserSearchResult>>> = flow {
         emit(Resource.Loading())
-        val result = runResourceCatching {
-            userSearchService.searchUsers(term).users.map {
-                UserSearchResult(it.username)
-            }.toSet()
+        val result = runResourceCatching(userSearchService.searchUsers(term)) { response ->
+            response.users.map { UserSearchResult(it.username) }.toSet()
         }
         emit(result)
     }
