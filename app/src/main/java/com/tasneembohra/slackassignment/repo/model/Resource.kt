@@ -8,6 +8,7 @@ enum class ErrorCode { NOT_FOUND }
 
 sealed class Resource<out T : Any?>(
     open val data: T?,
+    open val errorCode: ErrorCode? = null,
 ) {
     data class Success<out T : Any?>(
         override val data: T,
@@ -15,10 +16,10 @@ sealed class Resource<out T : Any?>(
 
     data class Error<out T : Any?>(
         val exception: Throwable? = null,
-        val errorCode: ErrorCode? = null,
+        override val errorCode: ErrorCode? = null,
         override val data: T? = null,
         val isCancelled: Boolean = false,
-    ) : Resource<T>(data)
+    ) : Resource<T>(data, errorCode)
 
     data class Loading<out T : Any?>(
         override val data: T? = null,
