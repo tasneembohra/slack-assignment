@@ -29,7 +29,7 @@ class UserSearchRepositoryImpl(
         }
 
         val result = runResourceCatching(userSearchService.searchUsers(term)) { response ->
-            response.users.map { User(1, it.username) }.toSet()
+            response.users.map { User(it.id, it.username) }.toSet()
         }.also {
             when {
                 it.errorCode == ErrorCode.NOT_FOUND -> {

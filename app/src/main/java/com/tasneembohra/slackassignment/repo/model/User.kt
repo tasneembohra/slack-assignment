@@ -9,6 +9,6 @@ import androidx.room.PrimaryKey
  */
 @Entity(tableName = "user_detail")
 data class User(
-    @PrimaryKey val uid: Int,
+    @PrimaryKey val uid: Long,
     @ColumnInfo(name = "user_name") val username: String,
 )
