@@ -18,22 +18,30 @@ class UserSearchRepositoryImpl(
     private val userSearchService: UserSearchService,
     private val userSearchDao: UserSearchDao,
 ) : UserSearchRepository {
+
     override fun searchUser(term: String): Flow<Resource<Set<User>>> = flow {
         emit(Resource.Loading())
+
         // Check if the username is matched with the denied list of search then return error with Not Found status
         if (userSearchDao.getDeniedKeyword(term)?.isNotEmpty() == true) {
             emit(Resource.Error(errorCode = ErrorCode.NOT_FOUND))
-        } else {
-            val result = runResourceCatching(userSearchService.searchUsers(term)) { response ->
-                response.users.map { User(1, it.username) }.toSet()
-            }
-
-            if (result.errorCode == ErrorCode.NOT_FOUND) {
-                // If api returns not found error, then update denied keywords table
-                userSearchDao.addDeniedKeyword(DeniedKeyword(term))
-            }
-
-            emit(result)
+            return@flow
         }
+
+        val result = runResourceCatching(userSearchService.searchUsers(term)) { response ->
+            response.users.map { User(1, it.username) }.toSet()
+        }.also {
+            when {
+                it.errorCode == ErrorCode.NOT_FOUND -> {
+                    // If api returns not found error, then update denied keywords table
+                    userSearchDao.addDeniedKeyword(DeniedKeyword(term))
+                }
+                it is Resource.Success -> {
+                    // Add users to User table for offline search
+                    userSearchDao.addUser(it.data)
+                }
+            }
+        }
+        emit(result)
     }
 }
