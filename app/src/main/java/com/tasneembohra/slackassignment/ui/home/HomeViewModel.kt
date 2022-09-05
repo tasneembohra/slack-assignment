@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.mapLatest
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class HomeViewModel(
     userSearchRepository: UserSearchRepository
 ) : ViewModel() {
