@@ -1,11 +1,13 @@
 package com.tasneembohra.slackassignment.repo.db.dao
 
+import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.tasneembohra.slackassignment.repo.model.DeniedKeyword
 import com.tasneembohra.slackassignment.repo.model.User
 
+@Dao
 interface UserSearchDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
