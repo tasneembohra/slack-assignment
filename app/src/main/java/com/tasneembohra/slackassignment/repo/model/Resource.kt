@@ -28,7 +28,11 @@ sealed class Resource<out T : Any?>(
     fun <R : Any> map(transform: (T) -> R): Resource<R> {
         return when (this) {
             is Success -> Success(data = transform(data))
-            is Error -> Error(exception = exception, data = data?.let(transform))
+            is Error -> Error(
+                exception = exception,
+                errorCode = errorCode,
+                data = data?.let(transform)
+            )
             is Loading -> Loading(data = data?.let(transform))
         }
     }
