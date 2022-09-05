@@ -3,9 +3,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="backgroundColor">#F7F7F7</color>
-    <color name="empress_grey">#737373</color>
 
     <!-- Text -->
-    <color name="primaryTextColor">@color/black</color>
-    <color name="secondaryTextColor">@color/empress_grey</color>
+    <color name="primaryTextColor">#1D1C1D</color>
+    <color name="secondaryTextColor">#616061</color>
 </resources>

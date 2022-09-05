@@ -8,8 +8,8 @@
     </style>
 
     <style name="PersonAvatar">
-        <item name="android:layout_height">34dp</item>
-        <item name="android:layout_width">34dp</item>
+        <item name="android:layout_height">28dp</item>
+        <item name="android:layout_width">28dp</item>
         <item name="android:scaleType">centerCrop</item>
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Rounded</item>
     </style>
@@ -20,13 +20,12 @@
     </style>
 
     <style name="Text">
-        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:fontFamily">sans-serif</item> <!--TODO update font to Lato regular-->
         <item name="android:textColor">@color/primaryTextColor</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="Text.Title">
-        <item name="android:textSize">15sp</item>
+    <style name="Text.Title"> <!--TODO update font to Lato bold-->
         <item name="android:textStyle">bold</item>
     </style>
 

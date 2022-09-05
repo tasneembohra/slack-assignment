@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Text">
+        <item name="android:fontFamily">sans-serif</item> <!--TODO update font to Lato regular-->
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineHeight">28sp</item>
+    </style>
+
+    <style name="Text.Title"> <!--TODO update font to Lato bold-->
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.Subtitle">
+        <item name="android:textColor">@color/secondaryTextColor</item>
+    </style>
+</resources>
