@@ -1,4 +1,4 @@
-package com.tasneembohra.slackassignment.util
+package com.tasneembohra.slackassignment.util.extensions
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope

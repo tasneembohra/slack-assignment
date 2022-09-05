@@ -1,0 +1,37 @@
+<resources>
+    <style name="Avatar">
+        <item name="android:paddingTop">@dimen/default_avatar_vertical_padding</item>
+        <item name="android:paddingBottom">@dimen/default_avatar_vertical_padding</item>
+        <item name="android:paddingStart">@dimen/default_margin</item>
+        <item name="android:paddingEnd">@dimen/default_margin</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="PersonAvatar">
+        <item name="android:layout_height">34dp</item>
+        <item name="android:layout_width">34dp</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Rounded</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.Rounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">4dp</item>
+    </style>
+
+    <style name="Text">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="Text.Title">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text.Subtitle">
+        <item name="android:textColor">@color/secondaryTextColor</item>
+    </style>
+
+</resources>

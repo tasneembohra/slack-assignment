@@ -13,7 +13,7 @@ import com.tasneembohra.slackassignment.repo.model.ErrorCode
 import com.tasneembohra.slackassignment.repo.model.Resource
 import com.tasneembohra.slackassignment.ui.home.di.homeModule
 import com.tasneembohra.slackassignment.ui.home.model.UserUi
-import com.tasneembohra.slackassignment.util.launch
+import com.tasneembohra.slackassignment.util.extensions.launch
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
