@@ -6,6 +6,7 @@ import com.tasneembohra.slackassignment.repo.model.DeniedKeyword
 import com.tasneembohra.slackassignment.repo.model.ErrorCode
 import com.tasneembohra.slackassignment.repo.model.Resource
 import com.tasneembohra.slackassignment.repo.model.User
+import com.tasneembohra.slackassignment.repo.model.UserSearchResultMapper
 import com.tasneembohra.slackassignment.repo.model.runResourceCatching
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -33,7 +34,7 @@ class UserSearchRepositoryImpl(
         }
 
         val result = runResourceCatching(userSearchService.searchUsers(term)) { response ->
-            response.users.map { User(it.id, it.username) }.toSet()
+            response.users.map(UserSearchResultMapper::map).toSet()
         }.also {
             when {
                 it.errorCode == ErrorCode.NOT_FOUND -> {

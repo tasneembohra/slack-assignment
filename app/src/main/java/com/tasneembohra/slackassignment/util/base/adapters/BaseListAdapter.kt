@@ -10,7 +10,7 @@ import com.tasneembohra.slackassignment.util.base.viewholders.BaseViewHolder
 import com.tasneembohra.slackassignment.util.base.viewholderfactory.BaseViewHolderFactory
 import kotlin.properties.Delegates
 
-abstract class BaseListAdapter(
+open class BaseListAdapter(
     private val viewHolderFactory: BaseViewHolderFactory,
     diffUtilCallback: BaseItemDiffUtilCallback<BaseItemUi> = BaseItemDiffUtilCallback()
 ) : RecyclerView.Adapter<BaseViewHolder<*, BaseItemUi>>(), ListAdapter {

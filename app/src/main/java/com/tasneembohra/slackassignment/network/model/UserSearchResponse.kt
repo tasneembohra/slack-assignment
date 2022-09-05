@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class UserSearchResponse(
     @SerialName("users")
-    val users: List<User> = emptyList(),
+    val users: List<UserResponse> = emptyList(),
 ): BaseResponse()

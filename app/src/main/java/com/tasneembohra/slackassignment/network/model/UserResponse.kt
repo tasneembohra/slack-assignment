@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
  * User model returned by the API.
  */
 @Serializable
-data class User(
+data class UserResponse(
     val username: String,
     @SerialName("id")
     val id: Long,

@@ -11,4 +11,6 @@ import androidx.room.PrimaryKey
 data class User(
     @PrimaryKey val uid: Long,
     @ColumnInfo(name = "user_name") val username: String,
+    @ColumnInfo(name = "display_name") val displayName: String?,
+    @ColumnInfo(name = "avatar_url") val avatarUrl: String?,
 )

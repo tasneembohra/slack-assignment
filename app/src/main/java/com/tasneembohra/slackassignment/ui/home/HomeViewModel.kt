@@ -1,12 +1,11 @@
 package com.tasneembohra.slackassignment.ui.home
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.tasneembohra.slackassignment.repo.UserSearchRepository
 import com.tasneembohra.slackassignment.repo.model.Resource
-import com.tasneembohra.slackassignment.ui.home.model.UserUi
+import com.tasneembohra.slackassignment.ui.home.model.UserSearchUiMapper
+import com.tasneembohra.slackassignment.util.model.AvatarUi
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.emptyFlow
@@ -19,13 +18,11 @@ class HomeViewModel(
 ) : ViewModel() {
     private val userSearchKeyword = MutableStateFlow<String?>(null)
 
-    val data: Flow<Resource<List<UserUi>>> = userSearchKeyword.flatMapLatest {
+    val data: Flow<Resource<List<AvatarUi>>> = userSearchKeyword.flatMapLatest {
         if (it == null) return@flatMapLatest emptyFlow()
         userSearchRepository.searchUser(it)
     }.mapLatest { resource ->
-        resource.map { result ->
-            result.map { UserUi(it.username) }
-        }
+        resource.map { it.map(UserSearchUiMapper::map) }
     }.flowOn(Dispatchers.IO)
 
     fun search(searchQuery: String?) {
