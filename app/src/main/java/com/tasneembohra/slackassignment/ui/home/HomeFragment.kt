@@ -5,19 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
-import com.tasneembohra.slackassignment.R
 import com.tasneembohra.slackassignment.databinding.FragmentHomeBinding
-import com.tasneembohra.slackassignment.repo.model.ErrorCode
 import com.tasneembohra.slackassignment.repo.model.Resource
 import com.tasneembohra.slackassignment.ui.home.di.homeModule
+import com.tasneembohra.slackassignment.util.DebouncingQueryTextListener
 import com.tasneembohra.slackassignment.util.base.adapters.BaseListAdapter
 import com.tasneembohra.slackassignment.util.extensions.launch
-import com.tasneembohra.slackassignment.util.model.AvatarUi
 import com.tasneembohra.slackassignment.util.model.BaseItemUi
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.android.ext.android.inject
@@ -25,7 +21,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
 import timber.log.Timber
 
-class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
+class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by viewModel()
     private val searchAdapter: BaseListAdapter by inject()
@@ -50,7 +46,12 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.searchView.setOnQueryTextListener(this)
+        binding.searchView.setOnQueryTextListener(
+            DebouncingQueryTextListener(
+                lifecycle = lifecycle,
+                onDebouncingQueryTextChange = viewModel::search,
+            )
+        )
         binding.recyclerView.adapter = searchAdapter
         binding.recyclerView.addItemDecoration(
             DividerItemDecoration(
@@ -64,16 +65,6 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
     override fun onDestroyView() {
         binding.recyclerView.adapter = null
         super.onDestroyView()
-    }
-
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        viewModel.search(query)
-        return true
-    }
-
-    override fun onQueryTextChange(newText: String?): Boolean {
-        viewModel.search(newText)
-        return true
     }
 
     private fun onSearchResult(result: Resource<List<BaseItemUi>>) {
