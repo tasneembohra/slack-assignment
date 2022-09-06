@@ -22,7 +22,7 @@ class HomeViewModel(
     private val userSearchKeyword = MutableStateFlow<String?>(null)
 
     val data: Flow<Resource<List<BaseItemUi>>> = userSearchKeyword.flatMapLatest {
-        if (it == null) return@flatMapLatest emptyFlow()
+        if (it.isNullOrBlank()) return@flatMapLatest emptyFlow()
         userSearchRepository.searchUser(it)
     }.mapLatest { resource ->
         resource.map {
