@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -25,6 +24,7 @@ class HomeFragment : Fragment() {
 
     private val viewModel: HomeViewModel by viewModel()
     private val searchAdapter: BaseListAdapter by inject()
+    private val itemDecoration: DividerItemDecoration by inject()
 
     private lateinit var binding: FragmentHomeBinding
 
@@ -53,17 +53,13 @@ class HomeFragment : Fragment() {
             )
         )
         binding.recyclerView.adapter = searchAdapter
-        binding.recyclerView.addItemDecoration(
-            DividerItemDecoration(
-                context,
-                LinearLayout.VERTICAL,
-            )
-        )
+        binding.recyclerView.addItemDecoration(itemDecoration)
         launch { viewModel.data.collectLatest(::onSearchResult) }
     }
 
     override fun onDestroyView() {
         binding.recyclerView.adapter = null
+        binding.recyclerView.removeItemDecoration(itemDecoration)
         super.onDestroyView()
     }
 
