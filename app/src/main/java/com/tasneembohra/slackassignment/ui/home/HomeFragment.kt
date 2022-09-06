@@ -60,6 +60,7 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         binding.recyclerView.adapter = null
         binding.recyclerView.removeItemDecoration(itemDecoration)
+        binding.searchView.setOnQueryTextListener(null)
         super.onDestroyView()
     }
 
