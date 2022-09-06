@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.tasneembohra.slackassignment.R
 import com.tasneembohra.slackassignment.databinding.FragmentHomeBinding
 import com.tasneembohra.slackassignment.repo.model.ErrorCode
@@ -15,6 +18,7 @@ import com.tasneembohra.slackassignment.ui.home.di.homeModule
 import com.tasneembohra.slackassignment.util.base.adapters.BaseListAdapter
 import com.tasneembohra.slackassignment.util.extensions.launch
 import com.tasneembohra.slackassignment.util.model.AvatarUi
+import com.tasneembohra.slackassignment.util.model.BaseItemUi
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -48,6 +52,12 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
         super.onViewCreated(view, savedInstanceState)
         binding.searchView.setOnQueryTextListener(this)
         binding.recyclerView.adapter = searchAdapter
+        binding.recyclerView.addItemDecoration(
+            DividerItemDecoration(
+                context,
+                LinearLayout.VERTICAL,
+            )
+        )
         launch { viewModel.data.collectLatest(::onSearchResult) }
     }
 
@@ -66,17 +76,9 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener {
         return true
     }
 
-    private fun onSearchResult(result: Resource<List<AvatarUi>>) {
+    private fun onSearchResult(result: Resource<List<BaseItemUi>>) {
         binding.progressBar.isVisible = result is Resource.Loading
-        binding.errorMessage.isVisible = result is Resource.Error
-        binding.recyclerView.isVisible = result is Resource.Success
-
-        when {
-            result.errorCode == ErrorCode.NOT_FOUND -> binding.errorMessage.text =
-                getString(R.string.user_not_found_error_message)
-            result is Resource.Error -> binding.errorMessage.text =
-                getString(R.string.generic_error_message)
-            result is Resource.Success -> searchAdapter.setData(result)
-        }
+        binding.recyclerView.isVisible = !result.data.isNullOrEmpty()
+        searchAdapter.setData(result)
     }
 }

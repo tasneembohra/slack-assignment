@@ -19,4 +19,6 @@ interface UserSearchDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addUser(users: Set<User>)
 
+    @Query("SELECT * FROM user_detail WHERE user_name LIKE :keyword || '%'")
+    fun searchUsers(keyword: String): List<User>
 }

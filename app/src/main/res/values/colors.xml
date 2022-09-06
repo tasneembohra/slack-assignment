@@ -7,4 +7,5 @@
     <!-- Text -->
     <color name="primaryTextColor">#1D1C1D</color>
     <color name="secondaryTextColor">#616061</color>
+    <color name="divider">#DDDDDD</color>
 </resources>

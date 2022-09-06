@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingHorizontal="@dimen/default_margin"
     android:paddingVertical="@dimen/default_avatar_vertical_padding">
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/default_margin"
         android:background="@drawable/bg_rounded_default"
         android:queryHint="Search user"
         app:closeIcon="@drawable/ic_clear_search"

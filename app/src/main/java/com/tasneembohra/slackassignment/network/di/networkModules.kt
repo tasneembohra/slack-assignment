@@ -1,6 +1,7 @@
 package com.tasneembohra.slackassignment.network.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.tasneembohra.slackassignment.network.ConnectivityInterceptor
 import com.tasneembohra.slackassignment.network.api.UserSearchService
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
@@ -21,6 +22,8 @@ val networkModules = module {
             level = HttpLoggingInterceptor.Level.BODY
         }
     }
+
+    factory { ConnectivityInterceptor(context = get()) }
 
     factory {
         OkHttpClient.Builder()
