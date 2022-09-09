@@ -48,6 +48,10 @@ Requirement doc -> https://docs.google.com/document/d/1WMb2KrYUTsk4PeyL3ZRmuyrAe
 
 ## Tech-stack
 
+The project follows MVVM arhitecture, Android Arhitecture Component pattens and Single Activity pattens.
+- [MVVM](https://developer.android.com/topic/architecture?gclid=Cj0KCQjwyOuYBhCGARIsAIdGQRN_OGJN0CwW_QnepirHZcz7T2cAhgimWn4Rjv_atQKMndWOVz2Ji7UaAjwIEALw_wcB&gclsrc=aw.ds#recommended-app-arch)
+
+
 
 You can check which dependencies need to be updated by running:
 ```bash
