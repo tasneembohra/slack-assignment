@@ -65,5 +65,5 @@ You can check which dependencies need to be updated by running:
 -   [Koin](https://insert-koin.io/) - A pragmatic lightweight dependency injection framework for Kotlin.
 -   [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) - Manage background threads with simplified code and reduce needs for callbacks.
 -   [Retrofit](https://square.github.io/retrofit/) - A type-safe HTTP client for Android.
--   [Kotlin Serializer](https://github.com/square/moshi) - A modern JSON library for Kotlin.
+-   [Kotlin Serializer](https://kotlinlang.org/docs/serialization.html) - A modern JSON library for Kotlin.
 -   [Coil](https://github.com/coil-kt/coil) - Image loading for Android backed by Kotlin Coroutines.
